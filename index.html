@@ -1,177 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Terra Signal — Climate Intelligence System</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>Terra Signal — Climate Intelligence System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      padding: 24px;
-      background: #020617;
-      color: #e5e7eb;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    h1, h2, h3 {
-      color: #7dd3fc;
-    }
-
-    section {
-      background: #020617;
-      border: 1px solid #1f2937;
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 24px;
-    }
-
-    input, textarea, button {
-      width: 100%;
-      margin-top: 10px;
-      padding: 12px;
-      border-radius: 10px;
-      border: 1px solid #334155;
-      background: #020617;
-      color: #e5e7eb;
-      font-size: 14px;
-    }
-
-    button {
-      background: #0284c7;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    button:hover {
-      background: #0369a1;
-    }
-
-    .output {
-      margin-top: 14px;
-      white-space: pre-wrap;
-      line-height: 1.6;
-      color: #d1d5db;
-    }
-
-    .chatbox {
-      max-height: 320px;
-      overflow-y: auto;
-      padding: 10px;
-      border: 1px solid #334155;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
-
-    .msg {
-      margin-bottom: 10px;
-    }
-
-    .user { color: #fbbf24; }
-    .ai { color: #7dd3fc; }
-
-    .footer {
-      font-size: 12px;
-      color: #9ca3af;
-      text-align: center;
-      margin-top: 20px;
-    }
-  </style>
+<style>
+body {
+  background:#020617;
+  color:#e5e7eb;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+  padding: 28px;
+}
+h1,h2,h3 { color:#7dd3fc; margin-bottom:6px; }
+p { color:#cbd5f5; }
+section {
+  border:1px solid #1f2937;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:26px;
+}
+input, textarea, button {
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:12px;
+  border:1px solid #334155;
+  background:#020617;
+  color:#e5e7eb;
+}
+button {
+  background:#0284c7;
+  font-weight:600;
+  cursor:pointer;
+}
+button:hover { background:#0369a1; }
+.output {
+  margin-top:16px;
+  white-space:pre-wrap;
+  line-height:1.7;
+  font-size:15px;
+}
+.chatbox {
+  max-height:340px;
+  overflow-y:auto;
+  border:1px solid #334155;
+  border-radius:12px;
+  padding:12px;
+}
+.msg { margin-bottom:14px; }
+.user { color:#fbbf24; }
+.ai { color:#7dd3fc; }
+small { color:#9ca3af; }
+.footer {
+  font-size:12px;
+  color:#9ca3af;
+  text-align:center;
+  margin-top:30px;
+}
+</style>
 </head>
 
 <body>
 
 <h1>🌍 Terra Signal</h1>
 <p>
-Terra Signal is a climate intelligence research system that synthesizes public weather data,
-environmental heuristics, and transparent reasoning to assess long-term environmental stress,
-hazard susceptibility, and land behavior.
+A research-grade climate intelligence system that interprets environmental stress
+through transparent physical signals — not black-box prediction.
 </p>
 
 <section>
-  <h2>🌦 Regional Climate Signal Analysis</h2>
-  <input id="location" placeholder="Enter a city or region (e.g., Houston, TX)" />
-  <button onclick="analyzeClimate()">Run Climate Analysis</button>
-  <div id="climateOut" class="output"></div>
+<h2>🌦 Regional Climate Signal Analysis</h2>
+<input id="locationInput" placeholder="City, region, or country (e.g., Houston, Texas)" />
+<button onclick="runAnalysis()">Analyze Region</button>
+<div id="climateOut" class="output"></div>
 </section>
 
 <section>
-  <h2>🛰 Terrain & Land Surface Input</h2>
-  <input type="file" accept="image/*" onchange="terrainHeuristic()" />
-  <div class="output" id="terrainOut"></div>
+<h2>💬 Conversational Climate Reasoning</h2>
+<div id="chat" class="chatbox"></div>
+<textarea id="chatInput" placeholder="Ask about flooding mechanisms, drought stress, soil behavior, or long-term climate risk"></textarea>
+<button onclick="sendChat()">Send</button>
 </section>
 
 <section>
-  <h2>💬 Terra Signal Conversational Interface</h2>
-  <div class="chatbox" id="chat"></div>
-  <textarea id="chatInput" placeholder="Ask about climate risk, drought, flooding, soil behavior, or long-term trends"></textarea>
-  <button onclick="sendChat()">Send</button>
-</section>
+<h2>🔬 Scientific Validity & Methodology</h2>
+<div class="output">
+Terra Signal performs interpretable environmental inference using publicly available
+meteorological signals rather than deterministic prediction models.
 
-<section>
-  <h2>🔬 Scientific Validation & Methodology</h2>
-  <div class="output">
-Terra Signal is grounded in established environmental science principles rather than opaque
-black-box prediction.
+Core signals:
+• Temperature maxima and thermal persistence
+• Precipitation accumulation and variability
+• Coupled heat–moisture stress heuristics
 
-Methodological Foundations:
-• Climate stress indicators derived from temperature maxima, precipitation accumulation, and variability
-• Soil behavior inferred through moisture persistence heuristics and runoff potential
-• Hazard susceptibility framed probabilistically, not deterministically
+Inferences describe *mechanisms* (e.g., soil saturation, evapotranspiration stress,
+runoff accumulation), not event forecasts.
 
-Data Sources:
-• Open-Meteo public global weather API
-• NOAA climate hazard frameworks
-• NASA Earth observation and hydrology literature
-
-This system is designed for research, education, and exploratory environmental analysis.
-It does not provide deterministic forecasts or emergency guidance.
-  </div>
-</section>
-
-<section>
-  <h2>🧠 System Architecture (Scalable by Design)</h2>
-  <div class="output">
-Current Version:
-• Client-side reasoning
-• Public data ingestion
-• Heuristic-based environmental inference
-
-Future Backend Expansion (Planned):
-• Server-side climate models
-• LLM-powered scientific reasoning
-• Image-based land classification
-• Longitudinal regional risk tracking
-
-Terra Signal is architected to scale naturally from a research prototype into a
-full climate intelligence platform.
-  </div>
+Limitations:
+• No subsurface soil maps or land-use classification
+• No hydrodynamic simulation
+• Outputs are probabilistic and explanatory, not warnings
+</div>
 </section>
 
 <div class="footer">
-© Terra Signal — Research Prototype
+Terra Signal — Climate Intelligence Research Prototype
 </div>
 
 <script>
-let latestClimate = null;
+let session = {
+  location: null,
+  coords: null,
+  climate: null,
+  stressProfile: null
+};
 
-async function geocode(place) {
-  const r = await fetch(
-    `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(place)}`
-  );
-  const j = await r.json();
-  return j.results ? j.results[0] : null;
+// ---------- Utilities ----------
+function avg(arr) {
+  return arr.reduce((a,b)=>a+b,0)/arr.length;
+}
+function variance(arr) {
+  const m = avg(arr);
+  return avg(arr.map(x => (x - m) ** 2));
 }
 
-async function analyzeClimate() {
-  const out = document.getElementById("climateOut");
-  out.textContent = "Analyzing climate signals...";
+// ---------- Geocoding ----------
+async function geocode(place) {
+  const r = await fetch(
+    `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(place)}&count=3`
+  );
+  const j = await r.json();
+  return j.results && j.results.length ? j.results[0] : null;
+}
 
-  const place = document.getElementById("location").value;
+// ---------- Analysis ----------
+async function runAnalysis() {
+  const out = document.getElementById("climateOut");
+  out.textContent = "Extracting environmental signals…";
+
+  const place = document.getElementById("locationInput").value.trim();
+  if (!place) {
+    out.textContent = "Please enter a location.";
+    return;
+  }
+
   const geo = await geocode(place);
   if (!geo) {
-    out.textContent = "Location not found.";
+    out.textContent = "Unable to resolve location. Try city + country.";
     return;
   }
 
@@ -180,44 +156,52 @@ async function analyzeClimate() {
 
   const r = await fetch(url);
   const d = await r.json();
-  latestClimate = d.daily;
 
-  const avgTemp = mean(d.daily.temperature_2m_max);
-  const avgRain = mean(d.daily.precipitation_sum);
+  const temps = d.daily.temperature_2m_max;
+  const rain = d.daily.precipitation_sum;
 
-  let signal = "Moderate environmental stress.";
-  if (avgRain > 10 && avgTemp > 30) signal = "Elevated flood and heat stress risk.";
-  if (avgRain < 2 && avgTemp > 32) signal = "High drought susceptibility.";
+  const avgTemp = avg(temps);
+  const avgRain = avg(rain);
+  const tempVar = variance(temps);
+  const rainVar = variance(rain);
+
+  // Stress inference
+  let thermalStress = avgTemp > 32 ? "high" : avgTemp > 26 ? "moderate" : "low";
+  let moistureStress = avgRain < 2 ? "dry" : avgRain > 10 ? "saturated" : "balanced";
+
+  let compoundRisk = "moderate";
+  if (thermalStress === "high" && moistureStress === "dry") compoundRisk = "drought-prone";
+  if (thermalStress === "high" && moistureStress === "saturated") compoundRisk = "flood-prone";
+
+  session = {
+    location: `${geo.name}, ${geo.country}`,
+    coords: { lat: geo.latitude, lon: geo.longitude },
+    climate: { avgTemp, avgRain, tempVar, rainVar },
+    stressProfile: { thermalStress, moistureStress, compoundRisk }
+  };
 
   out.textContent =
-`Region: ${geo.name}, ${geo.country}
-Average Max Temperature: ${avgTemp.toFixed(1)} °C
-Average Precipitation: ${avgRain.toFixed(1)} mm
+`Location: ${session.location}
+Coordinates: ${geo.latitude.toFixed(2)}, ${geo.longitude.toFixed(2)}
 
-Environmental Signal:
-${signal}
+Mean Daily Max Temperature: ${avgTemp.toFixed(1)} °C
+Mean Daily Precipitation: ${avgRain.toFixed(1)} mm
+
+Temperature Variability Index: ${tempVar.toFixed(2)}
+Precipitation Variability Index: ${rainVar.toFixed(2)}
+
+Environmental Stress Profile:
+• Thermal Stress: ${thermalStress}
+• Moisture Regime: ${moistureStress}
+• Compound Risk State: ${compoundRisk.toUpperCase()}
 
 Interpretation:
-Sustained temperature and precipitation patterns influence soil moisture retention,
-runoff behavior, and long-term land stability.`;
+Persistent climate signals interact with soil moisture dynamics, surface runoff,
+and evapotranspiration. Variability indices indicate stability vs. volatility
+in environmental stressors rather than single extreme events.`;
 }
 
-function mean(arr) {
-  return arr.reduce((a,b)=>a+b,0)/arr.length;
-}
-
-function terrainHeuristic() {
-  document.getElementById("terrainOut").textContent =
-`Image received.
-
-Qualitative land interpretation:
-• Uniform flat regions increase runoff accumulation
-• Cracked or pale soil indicates prolonged dryness
-• Vegetation density moderates erosion and flood risk
-
-Future versions will integrate satellite-aligned vision models.`;
-}
-
+// ---------- Conversational Reasoning ----------
 function sendChat() {
   const chat = document.getElementById("chat");
   const input = document.getElementById("chatInput");
@@ -227,18 +211,44 @@ function sendChat() {
   chat.innerHTML += `<div class="msg user">You: ${q}</div>`;
   input.value = "";
 
-  let response =
-"Terra Signal analysis:\n\n";
+  let reply = "Terra Signal reasoning:\n\n";
 
-  if (latestClimate) {
-    response +=
-"Using recent regional climate data, I can explain how precipitation, heat, and variability interact to shape soil moisture, flood susceptibility, and drought stress.\n\n";
+  if (!session.location) {
+    reply +=
+      "No region analyzed yet. Run a regional climate analysis to ground this discussion in environmental data.";
+  } else {
+    const s = session.stressProfile;
+    const c = session.climate;
+
+    reply +=
+`Region: ${session.location}
+Thermal Stress: ${s.thermalStress}
+Moisture Regime: ${s.moistureStress}
+Compound Risk: ${s.compoundRisk}
+
+`;
+
+    const t = q.toLowerCase();
+
+    if (t.includes("flood")) {
+      reply +=
+"Flood susceptibility arises when precipitation accumulation exceeds infiltration capacity. Elevated rainfall combined with thermal stress can reduce soil cohesion, increasing surface runoff and delayed inundation.";
+    } else if (t.includes("drought")) {
+      reply +=
+"Drought stress emerges from sustained thermal load and suppressed precipitation. High temperatures accelerate evapotranspiration, depleting soil moisture and stressing vegetation systems.";
+    } else if (t.includes("soil")) {
+      reply +=
+"Soil response depends on moisture persistence, compaction, and organic content. Climate stress alters infiltration rates, erosion potential, and long-term land stability.";
+    } else if (t.includes("trend") || t.includes("future")) {
+      reply +=
+"Long-term climate trends amplify baseline stress states. Regions with existing thermal or moisture imbalance tend to experience nonlinear increases in hazard sensitivity.";
+    } else {
+      reply +=
+"This question relates to how climate signals propagate into environmental stress. Terra Signal explains mechanisms rather than issuing deterministic predictions.";
+    }
   }
 
-  response +=
-"This system focuses on interpretable environmental signals rather than opaque predictions. Ask about long-term trends, land behavior, or climate stress mechanisms.";
-
-  chat.innerHTML += `<div class="msg ai">${response}</div>`;
+  chat.innerHTML += `<div class="msg ai">${reply}</div>`;
   chat.scrollTop = chat.scrollHeight;
 }
 </script>
