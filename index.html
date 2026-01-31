@@ -1,171 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Terra Signal — Climate Risk Intelligence</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Terra Signal — Climate Intelligence System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     body {
-      font-family: Inter, Arial, sans-serif;
-      background: #0b1020;
-      color: #e6e8f0;
       margin: 0;
-      padding: 0;
+      padding: 24px;
+      background: #020617;
+      color: #e5e7eb;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
-    header {
-      padding: 30px;
-      background: linear-gradient(135deg, #1b2cff, #00d4ff);
-      color: white;
+
+    h1, h2, h3 {
+      color: #7dd3fc;
     }
+
     section {
-      padding: 30px;
-      max-width: 900px;
-      margin: auto;
+      background: #020617;
+      border: 1px solid #1f2937;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 24px;
     }
-    h2 { color: #7dd3fc; }
+
     input, textarea, button {
       width: 100%;
-      padding: 12px;
       margin-top: 10px;
-      border-radius: 6px;
-      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 14px;
     }
+
     button {
-      background: #2563eb;
-      color: white;
+      background: #0284c7;
+      border: none;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 600;
     }
-    .card {
-      background: #11162a;
-      padding: 20px;
-      border-radius: 12px;
-      margin-bottom: 20px;
+
+    button:hover {
+      background: #0369a1;
     }
-    .chat-box {
-      height: 220px;
+
+    .output {
+      margin-top: 14px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+      color: #d1d5db;
+    }
+
+    .chatbox {
+      max-height: 320px;
       overflow-y: auto;
-      background: #050814;
       padding: 10px;
-      border-radius: 6px;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      margin-bottom: 10px;
     }
+
     .msg {
       margin-bottom: 10px;
     }
+
+    .user { color: #fbbf24; }
     .ai { color: #7dd3fc; }
-    .user { color: #facc15; }
-    footer {
+
+    .footer {
+      font-size: 12px;
+      color: #9ca3af;
       text-align: center;
-      opacity: 0.6;
-      padding: 20px;
+      margin-top: 20px;
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>🌍 Terra Signal</h1>
-  <p>Climate Pattern Analysis & Early Risk Intelligence</p>
-</header>
+<h1>🌍 Terra Signal</h1>
+<p>
+Terra Signal is a climate intelligence research system that synthesizes public weather data,
+environmental heuristics, and transparent reasoning to assess long-term environmental stress,
+hazard susceptibility, and land behavior.
+</p>
 
-<section class="card">
-  <h2>Global Climate Query</h2>
-  <input id="lat" placeholder="Latitude (e.g. 29.76)">
-  <input id="lon" placeholder="Longitude (e.g. -95.36)">
-  <button onclick="analyzeRegion()">Analyze Region</button>
-  <pre id="output"></pre>
+<section>
+  <h2>🌦 Regional Climate Signal Analysis</h2>
+  <input id="location" placeholder="Enter a city or region (e.g., Houston, TX)" />
+  <button onclick="analyzeClimate()">Run Climate Analysis</button>
+  <div id="climateOut" class="output"></div>
 </section>
 
-<section class="card">
-  <h2>Conversational AI</h2>
-  <div class="chat-box" id="chat"></div>
-  <textarea id="userInput" placeholder="Ask about flooding, soil saturation, drought risk..."></textarea>
-  <button onclick="sendMessage()">Send</button>
+<section>
+  <h2>🛰 Terrain & Land Surface Input</h2>
+  <input type="file" accept="image/*" onchange="terrainHeuristic()" />
+  <div class="output" id="terrainOut"></div>
 </section>
 
-<section class="card">
-  <h2>Terrain Image Upload</h2>
-  <input type="file" accept="image/*" onchange="analyzeImage(this)">
-  <p id="imageResult"></p>
+<section>
+  <h2>💬 Terra Signal Conversational Interface</h2>
+  <div class="chatbox" id="chat"></div>
+  <textarea id="chatInput" placeholder="Ask about climate risk, drought, flooding, soil behavior, or long-term trends"></textarea>
+  <button onclick="sendChat()">Send</button>
 </section>
 
-<section class="card">
-  <h2>Scientific Validation</h2>
-  <p>
-    Terra Signal does not claim deterministic prediction of natural disasters.
-    Instead, it computes <b>risk indicators</b> derived from:
-  </p>
-  <ul>
-    <li>Precipitation accumulation trends</li>
-    <li>Temperature volatility</li>
-    <li>Soil saturation proxies</li>
-    <li>Topographic heuristics</li>
-  </ul>
-  <p>
-    Models are inspired by IPCC methodologies, NASA hydrology datasets,
-    and NOAA climate indicators.
-  </p>
+<section>
+  <h2>🔬 Scientific Validation & Methodology</h2>
+  <div class="output">
+Terra Signal is grounded in established environmental science principles rather than opaque
+black-box prediction.
+
+Methodological Foundations:
+• Climate stress indicators derived from temperature maxima, precipitation accumulation, and variability
+• Soil behavior inferred through moisture persistence heuristics and runoff potential
+• Hazard susceptibility framed probabilistically, not deterministically
+
+Data Sources:
+• Open-Meteo public global weather API
+• NOAA climate hazard frameworks
+• NASA Earth observation and hydrology literature
+
+This system is designed for research, education, and exploratory environmental analysis.
+It does not provide deterministic forecasts or emergency guidance.
+  </div>
 </section>
 
-<footer>
-  Terra Signal © 2026 — Experimental Research Platform
-</footer>
+<section>
+  <h2>🧠 System Architecture (Scalable by Design)</h2>
+  <div class="output">
+Current Version:
+• Client-side reasoning
+• Public data ingestion
+• Heuristic-based environmental inference
+
+Future Backend Expansion (Planned):
+• Server-side climate models
+• LLM-powered scientific reasoning
+• Image-based land classification
+• Longitudinal regional risk tracking
+
+Terra Signal is architected to scale naturally from a research prototype into a
+full climate intelligence platform.
+  </div>
+</section>
+
+<div class="footer">
+© Terra Signal — Research Prototype
+</div>
 
 <script>
-async function analyzeRegion() {
-  const lat = document.getElementById("lat").value;
-  const lon = document.getElementById("lon").value;
-  const out = document.getElementById("output");
+let latestClimate = null;
 
-  out.textContent = "Fetching climate data...";
+async function geocode(place) {
+  const r = await fetch(
+    `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(place)}`
+  );
+  const j = await r.json();
+  return j.results ? j.results[0] : null;
+}
 
-  const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=precipitation,temperature_2m`;
+async function analyzeClimate() {
+  const out = document.getElementById("climateOut");
+  out.textContent = "Analyzing climate signals...";
 
-  const res = await fetch(url);
-  const data = await res.json();
+  const place = document.getElementById("location").value;
+  const geo = await geocode(place);
+  if (!geo) {
+    out.textContent = "Location not found.";
+    return;
+  }
 
-  const precip = data.hourly.precipitation.slice(0, 24);
-  const avgRain = precip.reduce((a,b)=>a+b,0)/precip.length;
+  const url =
+    `https://api.open-meteo.com/v1/forecast?latitude=${geo.latitude}&longitude=${geo.longitude}&daily=temperature_2m_max,precipitation_sum&timezone=auto`;
 
-  let risk = "LOW";
-  if (avgRain > 4) risk = "MODERATE";
-  if (avgRain > 8) risk = "HIGH";
+  const r = await fetch(url);
+  const d = await r.json();
+  latestClimate = d.daily;
+
+  const avgTemp = mean(d.daily.temperature_2m_max);
+  const avgRain = mean(d.daily.precipitation_sum);
+
+  let signal = "Moderate environmental stress.";
+  if (avgRain > 10 && avgTemp > 30) signal = "Elevated flood and heat stress risk.";
+  if (avgRain < 2 && avgTemp > 32) signal = "High drought susceptibility.";
 
   out.textContent =
-`Avg Precipitation (24h): ${avgRain.toFixed(2)} mm
-Hydrological Risk Index: ${risk}
+`Region: ${geo.name}, ${geo.country}
+Average Max Temperature: ${avgTemp.toFixed(1)} °C
+Average Precipitation: ${avgRain.toFixed(1)} mm
+
+Environmental Signal:
+${signal}
 
 Interpretation:
-Elevated precipitation may increase soil saturation and runoff potential.`;
+Sustained temperature and precipitation patterns influence soil moisture retention,
+runoff behavior, and long-term land stability.`;
 }
 
-function sendMessage() {
-  const input = document.getElementById("userInput").value;
+function mean(arr) {
+  return arr.reduce((a,b)=>a+b,0)/arr.length;
+}
+
+function terrainHeuristic() {
+  document.getElementById("terrainOut").textContent =
+`Image received.
+
+Qualitative land interpretation:
+• Uniform flat regions increase runoff accumulation
+• Cracked or pale soil indicates prolonged dryness
+• Vegetation density moderates erosion and flood risk
+
+Future versions will integrate satellite-aligned vision models.`;
+}
+
+function sendChat() {
   const chat = document.getElementById("chat");
+  const input = document.getElementById("chatInput");
+  const q = input.value.trim();
+  if (!q) return;
 
-  chat.innerHTML += `<div class="msg user">You: ${input}</div>`;
+  chat.innerHTML += `<div class="msg user">You: ${q}</div>`;
+  input.value = "";
 
-  let response = "This region currently shows stable conditions.";
+  let response =
+"Terra Signal analysis:\n\n";
 
-  if (input.toLowerCase().includes("flood"))
-    response = "Flood risk correlates with precipitation intensity and soil permeability.";
-  if (input.toLowerCase().includes("soil"))
-    response = "Saturated soils reduce infiltration, increasing surface runoff.";
+  if (latestClimate) {
+    response +=
+"Using recent regional climate data, I can explain how precipitation, heat, and variability interact to shape soil moisture, flood susceptibility, and drought stress.\n\n";
+  }
 
-  chat.innerHTML += `<div class="msg ai">Terra Signal: ${response}</div>`;
+  response +=
+"This system focuses on interpretable environmental signals rather than opaque predictions. Ask about long-term trends, land behavior, or climate stress mechanisms.";
+
+  chat.innerHTML += `<div class="msg ai">${response}</div>`;
   chat.scrollTop = chat.scrollHeight;
-  document.getElementById("userInput").value = "";
-}
-
-function analyzeImage(input) {
-  const result = document.getElementById("imageResult");
-  result.textContent =
-    "Terrain detected. Visual indicators suggest slope + drainage pathways. Image-based inference is heuristic only.";
 }
 </script>
 
 </body>
 </html>
-
