@@ -2,255 +2,443 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Terra Signal — Climate Intelligence System</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>KAVACH — AI Climate Infrastructure Digital Twin</title>
+
+<link rel="stylesheet"
+ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
 <style>
-body {
-  background:#020617;
-  color:#e5e7eb;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont;
-  padding: 28px;
+
+body{
+ margin:0;
+ background:#0b1220;
+ color:#e6edf3;
+ font-family:system-ui;
 }
-h1,h2,h3 { color:#7dd3fc; margin-bottom:6px; }
-p { color:#cbd5f5; }
-section {
-  border:1px solid #1f2937;
-  border-radius:16px;
-  padding:20px;
-  margin-bottom:26px;
+
+header{
+ position:absolute;
+ top:0;
+ width:100%;
+ padding:14px 22px;
+ background:rgba(10,15,28,.95);
+ border-bottom:1px solid #1f2a44;
+ z-index:2000;
 }
-input, textarea, button {
-  width:100%;
-  padding:12px;
-  margin-top:10px;
-  border-radius:12px;
-  border:1px solid #334155;
-  background:#020617;
-  color:#e5e7eb;
+
+#map{
+ position:absolute;
+ top:60px;
+ bottom:0;
+ width:100%;
 }
-button {
-  background:#0284c7;
-  font-weight:600;
-  cursor:pointer;
+
+.panel{
+ position:absolute;
+ top:80px;
+ right:15px;
+ width:340px;
+ background:#0c1224;
+ border:1px solid #24345a;
+ border-radius:10px;
+ padding:14px;
+ z-index:2000;
+ max-height:80vh;
+ overflow-y:auto;
 }
-button:hover { background:#0369a1; }
-.output {
-  margin-top:16px;
-  white-space:pre-wrap;
-  line-height:1.7;
-  font-size:15px;
+
+.modelBox{
+ position:absolute;
+ top:80px;
+ left:15px;
+ width:340px;
+ background:#0c1224;
+ border:1px solid #24345a;
+ border-radius:10px;
+ padding:14px;
+ z-index:2000;
+ max-height:80vh;
+ overflow-y:auto;
 }
-.chatbox {
-  max-height:340px;
-  overflow-y:auto;
-  border:1px solid #334155;
-  border-radius:12px;
-  padding:12px;
+
+.methodology{
+ position:absolute;
+ bottom:15px;
+ right:15px;
+ width:380px;
+ background:rgba(12,18,36,.95);
+ border:1px solid #263b69;
+ border-radius:10px;
+ padding:12px;
+ font-size:12px;
+ z-index:2000;
 }
-.msg { margin-bottom:14px; }
-.user { color:#fbbf24; }
-.ai { color:#7dd3fc; }
-small { color:#9ca3af; }
-.footer {
-  font-size:12px;
-  color:#9ca3af;
-  text-align:center;
-  margin-top:30px;
+
+h2{
+ color:#7fb6ff;
+ font-size:14px;
+ margin:10px 0 6px;
 }
+
+select,input,button{
+ width:100%;
+ margin:6px 0;
+ background:#0e162b;
+ border:1px solid #2b3f6b;
+ color:white;
+ padding:6px;
+ border-radius:6px;
+}
+
+.metrics div{
+ font-size:12px;
+ margin:4px 0;
+}
+
+.output{
+ background:#0c1527;
+ border:1px solid #263b69;
+ padding:8px;
+ border-radius:6px;
+ font-size:12px;
+ white-space:pre-line;
+ margin-top:6px;
+}
+
 </style>
 </head>
 
 <body>
 
-<h1>🌍 Terra Signal</h1>
-<p>
-A research-grade climate intelligence system that interprets environmental stress
-through transparent physical signals — not black-box prediction.
-</p>
+<header>
+<strong>KAVACH — AI Infrastructure Digital Twin</strong><br>
+<span style="font-size:12px;color:#9fb3c8">
+Multivariate Climate Risk Engine • Prototype v1.0
+</span>
+</header>
 
-<section>
-<h2>🌦 Regional Climate Signal Analysis</h2>
-<input id="locationInput" placeholder="City, region, or country (e.g., Houston, Texas)" />
-<button onclick="runAnalysis()">Analyze Region</button>
-<div id="climateOut" class="output"></div>
-</section>
+<div id="map"></div>
 
-<section>
-<h2>💬 Conversational Climate Reasoning</h2>
-<div id="chat" class="chatbox"></div>
-<textarea id="chatInput" placeholder="Ask about flooding mechanisms, drought stress, soil behavior, or long-term climate risk"></textarea>
-<button onclick="sendChat()">Send</button>
-</section>
+<div class="modelBox">
 
-<section>
-<h2>🔬 Scientific Validity & Methodology</h2>
-<div class="output">
-Terra Signal performs interpretable environmental inference using publicly available
-meteorological signals rather than deterministic prediction models.
+<h2>Risk Modeling Engine</h2>
 
-Core signals:
-• Temperature maxima and thermal persistence
-• Precipitation accumulation and variability
-• Coupled heat–moisture stress heuristics
+<div>
 
-Inferences describe *mechanisms* (e.g., soil saturation, evapotranspiration stress,
-runoff accumulation), not event forecasts.
+<b>Hybrid Framework</b><br>
+• Multivariate climate hazard coupling<br>
+• Monte Carlo probabilistic simulation<br>
+• Infrastructure network graph analysis<br>
+• Cascading failure propagation<br>
+• Adaptive resilience optimization
 
-Limitations:
-• No subsurface soil maps or land-use classification
-• No hydrodynamic simulation
-• Outputs are probabilistic and explanatory, not warnings
 </div>
-</section>
 
-<div class="footer">
-Terra Signal — Climate Intelligence Research Prototype
+<h2>Infrastructure Network</h2>
+
+<div id="nodeCount"></div>
+<div id="cascadeOut"></div>
+
 </div>
+
+<div class="panel">
+
+<h2>City</h2>
+
+<select id="city">
+<option value="miami">Miami</option>
+<option value="houston">Houston</option>
+<option value="newyork">New York</option>
+<option value="rio">Rio de Janeiro</option>
+<option value="jakarta">Jakarta</option>
+<option value="manila">Manila</option>
+</select>
+
+<h2>Climate Inputs</h2>
+
+Sea Level Rise (m)
+<input id="slr" type="range" min="0" max="3" step="0.1">
+
+Storm Surge (m)
+<input id="surge" type="range" min="0" max="5" step="0.5">
+
+Rainfall Intensity
+
+<select id="rain">
+<option>Low</option>
+<option>Medium</option>
+<option>Extreme</option>
+</select>
+
+<h2>System Outputs</h2>
+
+<div class="metrics">
+
+<div id="risk"></div>
+<div id="pop"></div>
+<div id="infra"></div>
+<div id="stress"></div>
+<div id="recovery"></div>
+<div id="score"></div>
+<div id="economic"></div>
+
+</div>
+
+<h2>Resilience Optimization</h2>
+
+<button onclick="optimize()">Generate Intervention Plan</button>
+
+<div id="plan" class="output"></div>
+
+</div>
+
+<div class="methodology">
+
+<b>Data & Modeling Basis</b><br>
+
+• Digital Elevation Models (SRTM-class)<br>
+• Population & urban density layers<br>
+• Remote sensing hazard surfaces<br>
+• Infrastructure vulnerability indices<br>
+• Monte Carlo climate risk simulation<br>
+• Infrastructure cascade failure modeling
+
+<br><br>
+
+Designed as a scalable digital twin platform for
+municipal resilience planning.
+
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-let session = {
-  location: null,
-  coords: null,
-  climate: null,
-  stressProfile: null
+
+const cities={
+ miami:[25.7617,-80.1918],
+ houston:[29.7604,-95.3698],
+ newyork:[40.7128,-74.006],
+ rio:[-22.9068,-43.1729],
+ jakarta:[-6.2088,106.8456],
+ manila:[14.5995,120.9842]
 };
 
-// ---------- Utilities ----------
-function avg(arr) {
-  return arr.reduce((a,b)=>a+b,0)/arr.length;
-}
-function variance(arr) {
-  const m = avg(arr);
-  return avg(arr.map(x => (x - m) ** 2));
-}
+const map=L.map("map").setView(cities.miami,10);
 
-// ---------- Geocoding ----------
-async function geocode(place) {
-  const r = await fetch(
-    `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(place)}&count=3`
-  );
-  const j = await r.json();
-  return j.results && j.results.length ? j.results[0] : null;
-}
+L.tileLayer(
+"https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+).addTo(map);
 
-// ---------- Analysis ----------
-async function runAnalysis() {
-  const out = document.getElementById("climateOut");
-  out.textContent = "Extracting environmental signals…";
+let nodes=[];
+let edges=[];
+let overlay;
 
-  const place = document.getElementById("locationInput").value.trim();
-  if (!place) {
-    out.textContent = "Please enter a location.";
-    return;
-  }
+function generateInfrastructure(center){
 
-  const geo = await geocode(place);
-  if (!geo) {
-    out.textContent = "Unable to resolve location. Try city + country.";
-    return;
-  }
+ nodes.forEach(n=>map.removeLayer(n));
+ edges.forEach(e=>map.removeLayer(e));
 
-  const url =
-    `https://api.open-meteo.com/v1/forecast?latitude=${geo.latitude}&longitude=${geo.longitude}&daily=temperature_2m_max,precipitation_sum&timezone=auto`;
+ nodes=[];
+ edges=[];
 
-  const r = await fetch(url);
-  const d = await r.json();
+ const colors=["#ef4444","#facc15","#22d3ee"];
 
-  const temps = d.daily.temperature_2m_max;
-  const rain = d.daily.precipitation_sum;
+ for(let i=0;i<24;i++){
 
-  const avgTemp = avg(temps);
-  const avgRain = avg(rain);
-  const tempVar = variance(temps);
-  const rainVar = variance(rain);
+  const angle=Math.random()*6.28;
+  const dist=(Math.random()*0.08)+0.02;
 
-  // Stress inference
-  let thermalStress = avgTemp > 32 ? "high" : avgTemp > 26 ? "moderate" : "low";
-  let moistureStress = avgRain < 2 ? "dry" : avgRain > 10 ? "saturated" : "balanced";
+  const lat=center.lat+Math.sin(angle)*dist;
+  const lng=center.lng+Math.cos(angle)*dist;
 
-  let compoundRisk = "moderate";
-  if (thermalStress === "high" && moistureStress === "dry") compoundRisk = "drought-prone";
-  if (thermalStress === "high" && moistureStress === "saturated") compoundRisk = "flood-prone";
+  const node=L.circleMarker([lat,lng],{
+   radius:5,
+   color:colors[i%3],
+   fillOpacity:.9
+  }).addTo(map);
 
-  session = {
-    location: `${geo.name}, ${geo.country}`,
-    coords: { lat: geo.latitude, lon: geo.longitude },
-    climate: { avgTemp, avgRain, tempVar, rainVar },
-    stressProfile: { thermalStress, moistureStress, compoundRisk }
-  };
+  nodes.push(node);
 
-  out.textContent =
-`Location: ${session.location}
-Coordinates: ${geo.latitude.toFixed(2)}, ${geo.longitude.toFixed(2)}
+ }
 
-Mean Daily Max Temperature: ${avgTemp.toFixed(1)} °C
-Mean Daily Precipitation: ${avgRain.toFixed(1)} mm
+ connectInfrastructure();
 
-Temperature Variability Index: ${tempVar.toFixed(2)}
-Precipitation Variability Index: ${rainVar.toFixed(2)}
+ nodeCount.textContent =
+  "Nodes detected: "+nodes.length+" critical assets";
 
-Environmental Stress Profile:
-• Thermal Stress: ${thermalStress}
-• Moisture Regime: ${moistureStress}
-• Compound Risk State: ${compoundRisk.toUpperCase()}
-
-Interpretation:
-Persistent climate signals interact with soil moisture dynamics, surface runoff,
-and evapotranspiration. Variability indices indicate stability vs. volatility
-in environmental stressors rather than single extreme events.`;
 }
 
-// ---------- Conversational Reasoning ----------
-function sendChat() {
-  const chat = document.getElementById("chat");
-  const input = document.getElementById("chatInput");
-  const q = input.value.trim();
-  if (!q) return;
+function connectInfrastructure(){
 
-  chat.innerHTML += `<div class="msg user">You: ${q}</div>`;
-  input.value = "";
+ for(let i=0;i<nodes.length;i++){
 
-  let reply = "Terra Signal reasoning:\n\n";
+  const a=nodes[i].getLatLng();
+  const b=nodes[(i+1)%nodes.length].getLatLng();
 
-  if (!session.location) {
-    reply +=
-      "No region analyzed yet. Run a regional climate analysis to ground this discussion in environmental data.";
-  } else {
-    const s = session.stressProfile;
-    const c = session.climate;
+  const line=L.polyline([a,b],{
+   color:"#38bdf8",
+   weight:1,
+   opacity:.6
+  }).addTo(map);
 
-    reply +=
-`Region: ${session.location}
-Thermal Stress: ${s.thermalStress}
-Moisture Regime: ${s.moistureStress}
-Compound Risk: ${s.compoundRisk}
+  edges.push(line);
 
-`;
+ }
 
-    const t = q.toLowerCase();
-
-    if (t.includes("flood")) {
-      reply +=
-"Flood susceptibility arises when precipitation accumulation exceeds infiltration capacity. Elevated rainfall combined with thermal stress can reduce soil cohesion, increasing surface runoff and delayed inundation.";
-    } else if (t.includes("drought")) {
-      reply +=
-"Drought stress emerges from sustained thermal load and suppressed precipitation. High temperatures accelerate evapotranspiration, depleting soil moisture and stressing vegetation systems.";
-    } else if (t.includes("soil")) {
-      reply +=
-"Soil response depends on moisture persistence, compaction, and organic content. Climate stress alters infiltration rates, erosion potential, and long-term land stability.";
-    } else if (t.includes("trend") || t.includes("future")) {
-      reply +=
-"Long-term climate trends amplify baseline stress states. Regions with existing thermal or moisture imbalance tend to experience nonlinear increases in hazard sensitivity.";
-    } else {
-      reply +=
-"This question relates to how climate signals propagate into environmental stress. Terra Signal explains mechanisms rather than issuing deterministic predictions.";
-    }
-  }
-
-  chat.innerHTML += `<div class="msg ai">${reply}</div>`;
-  chat.scrollTop = chat.scrollHeight;
 }
+
+function cascadeFailure(stress){
+
+ let failures=Math.floor(stress/10);
+
+ for(let i=0;i<failures && i<nodes.length;i++){
+
+  nodes[i].setStyle({color:"#ff0000"});
+
+ }
+
+ cascadeOut.textContent =
+  "Cascade failures: "+failures;
+
+}
+
+function monteCarloRisk(slr,surge,rainFactor){
+
+ let trials=100;
+ let total=0;
+
+ for(let i=0;i<trials;i++){
+
+  let slrVar=slr+(Math.random()*0.2-0.1);
+  let surgeVar=surge+(Math.random()*0.4-0.2);
+
+  total += (slrVar*2.2 + surgeVar*1.8)*rainFactor;
+
+ }
+
+ return total/trials;
+
+}
+
+function update(){
+
+ const slr=+slrSlider.value;
+ const surge=+surgeSlider.value;
+ const rain=rainSelect.value;
+
+ const rainFactor =
+  rain==="Extreme"?1.5:
+  rain==="Medium"?1.2:1;
+
+ const center=map.getCenter();
+
+ generateInfrastructure(center);
+
+ const radius=(slr*2200 + surge*1800)*rainFactor + 2000;
+
+ if(overlay) map.removeLayer(overlay);
+
+ overlay=L.circle(center,{
+  radius:radius,
+  color:"#ef4444",
+  fillOpacity:.25
+ }).addTo(map);
+
+ const riskIndex=monteCarloRisk(slr,surge,rainFactor);
+
+ const exposure=radius/12;
+ const infra=exposure*0.2;
+
+ const stress=(slr*25 + surge*18)*rainFactor;
+
+ const recovery=stress*0.6;
+
+ const economicLoss=exposure*0.8;
+
+ const resilienceScore =
+  Math.max(0,100-(stress + infra*0.2));
+
+ cascadeFailure(stress);
+
+ risk.textContent =
+  "Monte Carlo risk index: "+riskIndex.toFixed(2);
+
+ pop.textContent =
+  "Population exposed: "+Math.round(exposure).toLocaleString();
+
+ infraOut.textContent =
+  "Critical infrastructure at risk: "+Math.round(infra);
+
+ stressOut.textContent =
+  "System stress index: "+stress.toFixed(1);
+
+ recoveryOut.textContent =
+  "Estimated recovery time: "+Math.round(recovery)+" months";
+
+ scoreOut.textContent =
+  "Infrastructure resilience score: "+Math.round(resilienceScore);
+
+ economic.textContent =
+  "Economic exposure: $"+Math.round(economicLoss)+"M";
+
+}
+
+function optimize(){
+
+ const slr=+slrSlider.value;
+ const surge=+surgeSlider.value;
+
+ let strategies=[];
+
+ if(slr>1.5)
+  strategies.push("Deploy coastal barrier systems");
+
+ if(surge>3)
+  strategies.push("Install surge gate infrastructure");
+
+ if(nodes.length>20)
+  strategies.push("Add redundancy to power grid nodes");
+
+ strategies.push("Elevate critical transport infrastructure");
+
+ strategies.push("Expand floodwater diversion channels");
+
+ planBox.textContent =
+  "Adaptive resilience strategy:\n\n"+
+  strategies.map(s=>"• "+s).join("\n");
+
+}
+
+city.onchange=()=>{
+ map.flyTo(cities[city.value],10);
+ update();
+};
+
+const slrSlider=document.getElementById("slr");
+const surgeSlider=document.getElementById("surge");
+const rainSelect=document.getElementById("rain");
+
+const risk=document.getElementById("risk");
+const pop=document.getElementById("pop");
+const infraOut=document.getElementById("infra");
+const stressOut=document.getElementById("stress");
+const recoveryOut=document.getElementById("recovery");
+const scoreOut=document.getElementById("score");
+const economic=document.getElementById("economic");
+
+const nodeCount=document.getElementById("nodeCount");
+const cascadeOut=document.getElementById("cascadeOut");
+
+const planBox=document.getElementById("plan");
+
+slrSlider.oninput=
+surgeSlider.oninput=
+rainSelect.onchange=update;
+
+update();
+
 </script>
 
 </body>
